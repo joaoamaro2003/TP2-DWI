@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="PokéGuess - Jogo de adivinhar Pokémon" />
-    <meta name="author" content="[O teu nome]" />
+    <meta name="author" content="João Amaro" />
     <title>PokéGuess</title>
 
     <link rel="stylesheet" href="css/style.css" />
@@ -157,12 +157,35 @@
       <p id="historico-vazio" hidden>Ainda não jogaste nenhuma partida.</p>
     </main>
 
+    <!-- Loading -->
+    <div id="loading" class="loading" hidden>
+      <div class="pokeball">
+        <div class="pb-cima"></div>
+        <div class="pb-meio"></div>
+        <div class="pb-baixo"></div>
+      </div>
+      <p>A carregar…</p>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Atalhos -->
+    <aside class="atalhos">
+      <kbd>Enter</kbd> Submeter &nbsp;|&nbsp; <kbd>H</kbd> Pista
+    </aside>
+
+    <!-- Scripts -->
     <script src="js/api.js"></script>
-    <script src="js/estado.js"></script>
+    <script src="js/stateJogo.js"></script>
     <script src="js/timer.js"></script>
     <script src="js/game.js"></script>
     <script src="js/ui.js"></script>
     <script src="js/historico.js"></script>
+    <script src="js/modes/silhouette.js"></script>
+    <script src="js/modes/stats.js"></script>
+    <script src="js/modes/typeGen.js"></script>
+    <script src="js/modes/evolution.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
