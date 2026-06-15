@@ -6,19 +6,9 @@ const estadoJogo = {
   streak: 0,
   ronda: 1,
   pokemonAtual: null,
+  tempoRestante: 60,
+  jogoAtivo: false,
 };
-
-function guardarEstado() {
-  localStorage.setItem("pokeguess_estado", JSON.stringify(estadoJogo));
-}
-
-function carregarEstado() {
-  const dados = localStorage.getItem("pokeguess_estado");
-
-  if (dados) {
-    Object.assign(estadoJogo, JSON.parse(dados));
-  }
-}
 
 function reiniciarEstado() {
   estadoJogo.pontos = 0;
@@ -26,6 +16,6 @@ function reiniciarEstado() {
   estadoJogo.streak = 0;
   estadoJogo.ronda = 1;
   estadoJogo.pokemonAtual = null;
-
-  guardarEstado();
+  estadoJogo.tempoRestante = 60;
+  estadoJogo.jogoAtivo = false;
 }

@@ -1,22 +1,16 @@
 const API_URL = "https://pokeapi.co/api/v2/pokemon/";
-const cachePokemon = {};
+const cache = {};
 
 async function obterPokemon(id) {
-  if (cachePokemon[id]) {
-    return cachePokemon[id];
-  }
+  if (cache[id]) return cache[id];
 
-  const resposta = await fetch(API_URL + id);
+  const res = await fetch(API_URL + id);
+  if (!res.ok) throw new Error("Erro API");
 
-  if (!resposta.ok) {
-    throw new Error("Erro ao obter Pokémon");
-  }
+  const data = await res.json();
+  cache[id] = data;
 
-  const pokemon = await resposta.json();
-
-  cachePokemon[id] = pokemon;
-
-  return pokemon;
+  return data;
 }
 
 async function obterPokemonAleatorio(max = 151) {
