@@ -1,9 +1,9 @@
 # PokéGuess
 
-## Identificação do aluno
+## Identificação
 
 - Nome: João Lajes Amaro
-- Curso: [O TEU CURSO]
+- Curso: Tecnologias e programação de Sistemas de Informação
 - Ano letivo: 2025/2026
 
 ---
