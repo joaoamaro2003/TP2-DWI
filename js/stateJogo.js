@@ -1,3 +1,5 @@
+/* estado.js */
+
 const estadoJogo = {
   modo: "silhueta",
   dificuldade: "facil",
@@ -10,6 +12,7 @@ const estadoJogo = {
   jogoAtivo: false,
 };
 
+// Reinicia o estado para um novo jogo
 function reiniciarEstado() {
   estadoJogo.pontos = 0;
   estadoJogo.vidas = 3;

@@ -1,11 +1,10 @@
-/**
- * game.js - Motor do jogo
- */
+/* game.js - Motor do jogo */
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btn-iniciar").addEventListener("click", iniciarJogo);
 });
 
+// Inicia uma nova partida
 function iniciarJogo() {
   reiniciarEstado();
 
@@ -21,6 +20,7 @@ function iniciarJogo() {
   iniciarRonda();
 }
 
+// Prepara uma nova ronda
 async function iniciarRonda() {
   limparDisplay();
 
@@ -69,6 +69,7 @@ async function iniciarRonda() {
   iniciarTimer(tempo, perderVida);
 }
 
+// Gera opções para escolha múltipla
 function _gerarOpcoes(nomeCorreto) {
   const max =
     estadoJogo.dificuldade === "facil"
@@ -86,6 +87,7 @@ function _gerarOpcoes(nomeCorreto) {
   return opcoes;
 }
 
+// Verifica a opção escolhida
 function _verificarOpcao(escolha) {
   const certo = escolha === estadoJogo.pokemonAtual.name;
   destacarOpcao(escolha, certo);
@@ -106,6 +108,7 @@ function _verificarOpcao(escolha) {
   }
 }
 
+// Valida a resposta do jogador
 function submeterResposta() {
   if (!estadoJogo.jogoAtivo) return;
   if (estadoJogo.modo === "tipogen") return;
@@ -129,6 +132,7 @@ function submeterResposta() {
   }
 }
 
+// Mostra uma pista ao jogador
 function pedirPista() {
   if (!estadoJogo.jogoAtivo) return;
 
@@ -163,6 +167,7 @@ function pedirPista() {
   estadoJogo.pistasUsadas = pistasUsadas + 1;
 }
 
+// Trata uma resposta correta
 function respostaCorreta() {
   estadoJogo.pontos += calcularPontos();
   estadoJogo.streak++;
@@ -173,10 +178,12 @@ function respostaCorreta() {
   setTimeout(() => iniciarRonda(), 1500);
 }
 
+// Trata uma resposta errada
 function respostaErrada() {
   perderVida();
 }
 
+// Remove uma vida ao jogador
 function perderVida() {
   estadoJogo.vidas--;
   estadoJogo.streak = 0;
@@ -194,6 +201,7 @@ function perderVida() {
   setTimeout(() => iniciarRonda(), 1500);
 }
 
+// Calcula os pontos da ronda
 function calcularPontos() {
   const pistasUsadas = estadoJogo.pistasUsadas || 0;
   const tempo =
@@ -208,6 +216,7 @@ function calcularPontos() {
   return Math.max(10, Math.round(pts));
 }
 
+// Atualiza a visualização das vidas
 function atualizarVidas() {
   const vidas = document.querySelectorAll(".vida");
   vidas.forEach((v, i) => {
@@ -216,6 +225,7 @@ function atualizarVidas() {
   });
 }
 
+// Termina o jogo
 function terminarJogo() {
   pararTimer();
   estadoJogo.jogoAtivo = false;
@@ -233,6 +243,7 @@ function terminarJogo() {
     estadoJogo.maiorStreak || estadoJogo.streak;
 }
 
+// Guarda a partida no histórico
 function guardarHistorico() {
   const historico = JSON.parse(
     localStorage.getItem("pokeguess_historico") || "[]",
@@ -248,11 +259,13 @@ function guardarHistorico() {
   localStorage.setItem("pokeguess_historico", JSON.stringify(historico));
 }
 
+// Compara dois nomes de Pokémon
 function nomesIguais(a, b) {
   const norm = (s) => s.toLowerCase().replace(/[-\s]/g, "");
   return norm(a) === norm(b);
 }
 
+// Formata o nome para apresentação
 function formatarNome(nome) {
   return nome
     .split("-")
@@ -260,6 +273,7 @@ function formatarNome(nome) {
     .join(" ");
 }
 
+// Obtém a imagem oficial do Pokémon
 function getImagem(id) {
   return (
     "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/" +

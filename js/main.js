@@ -1,6 +1,4 @@
-/**
- * main.js - Event listeners e arranque
- */
+/*  main.js - Event listeners e arranque */
 
 document.addEventListener("DOMContentLoaded", () => {
   // --- Seleção de modo ---

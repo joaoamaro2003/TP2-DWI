@@ -1,31 +1,36 @@
-/**
- * ui.js - Manipulação do DOM
- */
+/* ui.js */
 
 let timerToast = null;
 
+// Troca o ecrã visível
 function mostrarEcra(id) {
   const ecras = document.querySelectorAll(".ecra");
   ecras.forEach((e) => e.classList.remove("ativo"));
   document.getElementById("ecra-" + id).classList.add("ativo");
 }
 
+// Mostra o loading
 function mostrarLoading() {
   document.getElementById("loading").hidden = false;
 }
 
+// Esconde o loading
 function esconderLoading() {
   document.getElementById("loading").hidden = true;
 }
 
+// Mostra mensagem temporária (toast)
 function mostrarToast(msg) {
   const el = document.getElementById("toast");
   el.textContent = msg;
   el.classList.add("visivel");
+
   if (timerToast) clearTimeout(timerToast);
+
   timerToast = setTimeout(() => el.classList.remove("visivel"), 2500);
 }
 
+// Atualiza HUD (pontos, modo, streak, ronda e vidas)
 function atualizarHUD() {
   document.getElementById("hud-modo").textContent = estadoJogo.modo;
   document.getElementById("hud-pontos").textContent = estadoJogo.pontos;
@@ -33,19 +38,24 @@ function atualizarHUD() {
   document.getElementById("num-ronda").textContent = estadoJogo.ronda;
 
   const vidas = document.querySelectorAll(".vida");
+
   vidas.forEach((v, i) => {
     if (i >= estadoJogo.vidas) v.classList.add("perdida");
     else v.classList.remove("perdida");
   });
 }
 
+// Atualiza temporizador e estado visual de perigo
 function atualizarTemporizador(seg, total) {
   document.getElementById("tempo-texto").textContent = seg;
+
   const caixa = document.getElementById("caixa-tempo");
+
   if (seg / total < 0.3) caixa.classList.add("perigo");
   else caixa.classList.remove("perigo");
 }
 
+// Limpa área de jogo (imagem, pistas e feedback)
 function limparDisplay() {
   document.getElementById("display-pokemon").innerHTML = "";
   document.getElementById("area-pistas").innerHTML = "";
@@ -53,15 +63,18 @@ function limparDisplay() {
   document.getElementById("feedback").className = "feedback";
 }
 
+// Mostra Pokémon em modo silhueta
 function mostrarSilhueta(id) {
   const img = document.createElement("img");
   img.src = getImagem(id);
   img.alt = "Silhueta do Pokémon";
   img.className = "img-silhueta";
+
   document.getElementById("display-pokemon").appendChild(img);
   return img;
 }
 
+// Revela o Pokémon (troca silhueta por imagem normal)
 function revelarPokemon(id) {
   const img = document.querySelector(".img-silhueta");
   if (img) {
@@ -70,6 +83,7 @@ function revelarPokemon(id) {
   }
 }
 
+// Mostra estatísticas do Pokémon (HP, ataque, defesa, etc.)
 function mostrarEstatisticas(stats) {
   const cores = {
     hp: "#ff5f5f",
@@ -79,6 +93,7 @@ function mostrarEstatisticas(stats) {
     "special-defense": "#3dd68c",
     speed: "#ffd740",
   };
+
   const labels = {
     hp: "HP",
     attack: "ATQ",
@@ -98,11 +113,17 @@ function mostrarEstatisticas(stats) {
 
     const item = document.createElement("div");
     item.className = "item-stat";
-    item.innerHTML = `<label>${labels[key] || key}</label>
-                      <strong>${val}</strong>
-                      <div class="barra-fundo">
-                        <div class="barra-fill" style="background:${cores[key] || "#ffd740"}" data-pct="${pct}"></div>
-                      </div>`;
+
+    item.innerHTML = `
+      <label>${labels[key] || key}</label>
+      <strong>${val}</strong>
+      <div class="barra-fundo">
+        <div class="barra-fill"
+             style="background:${cores[key] || "#ffd740"}"
+             data-pct="${pct}"></div>
+      </div>
+    `;
+
     grelha.appendChild(item);
   });
 
@@ -115,6 +136,7 @@ function mostrarEstatisticas(stats) {
   }, 50);
 }
 
+// Mostra tipo e geração do Pokémon
 function mostrarTipoGen(tipos, geracao) {
   const div = document.createElement("div");
   div.className = "info-tipogen";
@@ -135,9 +157,11 @@ function mostrarTipoGen(tipos, geracao) {
 
   div.appendChild(badges);
   div.appendChild(gen);
+
   document.getElementById("display-pokemon").appendChild(div);
 }
 
+// Mostra cadeia evolutiva (modo evolução)
 function mostrarCadeia(nomes, indiceAlvo) {
   const cadeia = document.createElement("div");
   cadeia.className = "cadeia";
@@ -153,16 +177,19 @@ function mostrarCadeia(nomes, indiceAlvo) {
     const mon = document.createElement("div");
     mon.className = "mon";
     mon.dataset.nome = nome;
+
     if (i === indiceAlvo) mon.classList.add("misterio");
 
     const img = document.createElement("img");
     img.src = "";
     img.alt = i === indiceAlvo ? "???" : formatarNome(nome);
+
     mon.appendChild(img);
 
     const nomeEl = document.createElement("span");
     nomeEl.className = "nome-mon";
     nomeEl.textContent = i === indiceAlvo ? "???" : formatarNome(nome);
+
     mon.appendChild(nomeEl);
 
     cadeia.appendChild(mon);
@@ -172,6 +199,7 @@ function mostrarCadeia(nomes, indiceAlvo) {
   return cadeia;
 }
 
+// Adiciona pista ao ecrã
 function adicionarPista(texto) {
   const chip = document.createElement("span");
   chip.className = "chip-pista";
@@ -179,6 +207,7 @@ function adicionarPista(texto) {
   document.getElementById("area-pistas").appendChild(chip);
 }
 
+// Mostra input de resposta
 function mostrarInput() {
   document.getElementById("zona-input").hidden = false;
   document.getElementById("zona-opcoes").hidden = true;
@@ -186,6 +215,7 @@ function mostrarInput() {
   document.getElementById("input-resposta").focus();
 }
 
+// Mostra opções (modo múltipla escolha)
 function mostrarOpcoes(opcoes, callback) {
   document.getElementById("zona-input").hidden = true;
   document.getElementById("zona-opcoes").hidden = false;
@@ -198,25 +228,32 @@ function mostrarOpcoes(opcoes, callback) {
     btn.className = "btn-opcao";
     btn.textContent = formatarNome(nome);
     btn.dataset.nome = nome;
+
     btn.addEventListener("click", () => callback(nome));
+
     zona.appendChild(btn);
   });
 }
 
+// Desativa inputs depois de responder
 function desativarResposta() {
   document.getElementById("input-resposta").disabled = true;
   document.getElementById("btn-adivinhar").disabled = true;
   document.getElementById("btn-pista").disabled = true;
+
   document.querySelectorAll(".btn-opcao").forEach((b) => (b.disabled = true));
 }
 
+// Destaca opção correta/incorreta
 function destacarOpcao(nome, certo) {
   document.querySelectorAll(".btn-opcao").forEach((btn) => {
-    if (btn.dataset.nome === nome)
+    if (btn.dataset.nome === nome) {
       btn.classList.add(certo ? "certo" : "errado");
+    }
   });
 }
 
+// Anima input errado
 function tremerInput() {
   const inp = document.getElementById("input-resposta");
   inp.classList.remove("errado");
@@ -224,44 +261,56 @@ function tremerInput() {
   inp.classList.add("errado");
 }
 
+// Mostra feedback de resposta
 function mostrarFeedback(msg, tipo) {
   const el = document.getElementById("feedback");
   el.textContent = msg;
   el.className = "feedback " + tipo;
 }
 
+// Mostra ecrã final
 function mostrarFim() {
   document.getElementById("fim-pontos").textContent = estadoJogo.pontos;
   document.getElementById("fim-acertos").textContent = estadoJogo.acertos || 0;
   document.getElementById("fim-rondas").textContent = estadoJogo.ronda - 1;
   document.getElementById("fim-streak").textContent =
     estadoJogo.maiorStreak || 0;
+
   mostrarEcra("fim");
 }
 
+// Renderiza histórico no ecrã
 function renderizarHistorico() {
   const historico = JSON.parse(
     localStorage.getItem("pokeguess_historico") || "[]",
   );
+
   const lista = document.getElementById("lista-historico");
   const vazio = document.getElementById("historico-vazio");
+
   lista.innerHTML = "";
 
   if (historico.length === 0) {
     vazio.hidden = false;
     return;
   }
+
   vazio.hidden = true;
 
   historico.forEach((s) => {
     const data = new Date(s.inicio).toLocaleDateString("pt-PT");
+
     const item = document.createElement("div");
     item.className = "item-historico";
-    item.innerHTML = `<div>
-                        <strong>${s.modo} — ${s.dificuldade}</strong>
-                        <small>${data} · ${s.acertos || 0} acertos · Streak: ${s.maiorStreak || 0}</small>
-                      </div>
-                      <span class="pontos">${s.pontos || 0} pts</span>`;
+
+    item.innerHTML = `
+      <div>
+        <strong>${s.modo} — ${s.dificuldade}</strong>
+        <small>${data} · ${s.acertos || 0} acertos · Streak: ${s.maiorStreak || 0}</small>
+      </div>
+      <span class="pontos">${s.pontos || 0} pts</span>
+    `;
+
     lista.appendChild(item);
   });
 }

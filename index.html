@@ -11,6 +11,7 @@
   </head>
 
   <body>
+    <!-- ===== ECRÃ INICIAL ===== -->
     <main id="ecra-inicio" class="ecra ativo">
       <header>
         <h1 class="logo"><span class="amarelo">Poké</span>Guess</h1>
@@ -19,7 +20,6 @@
 
       <section class="painel">
         <p class="etiqueta">Modo de jogo</p>
-
         <div class="grelha-modos">
           <button class="btn-modo ativo" data-modo="silhueta">
             👤 Silhueta
@@ -34,7 +34,6 @@
         </div>
 
         <p class="etiqueta">Dificuldade</p>
-
         <div class="linha-dificuldade">
           <button class="btn-dif ativo" data-dif="facil">
             Fácil · Gen I · 60s
@@ -48,11 +47,11 @@
         </div>
 
         <button id="btn-iniciar" class="btn-primario">Iniciar Partida</button>
-
         <button id="btn-historico" class="btn-secundario">📜 Histórico</button>
       </section>
     </main>
 
+    <!-- ===== ECRÃ DE JOGO ===== -->
     <main id="ecra-jogo" class="ecra">
       <header class="hud">
         <div>
@@ -112,52 +111,51 @@
       </section>
     </main>
 
+    <!-- ===== ECRÃ FIM DE JOGO ===== -->
     <main id="ecra-fim" class="ecra">
       <div class="cartao-fim">
         <h2>Jogo Terminado!</h2>
 
+        <!-- Resumo da partida -->
         <div class="stats-fim">
           <div class="stat">
             <span>Pontuação</span>
             <strong id="fim-pontos">0</strong>
           </div>
-
           <div class="stat">
             <span>Acertos</span>
             <strong id="fim-acertos">0</strong>
           </div>
-
           <div class="stat">
             <span>Rondas</span>
             <strong id="fim-rondas">0</strong>
           </div>
-
           <div class="stat">
             <span>Maior Streak</span>
             <strong id="fim-streak">0</strong>
           </div>
         </div>
 
+        <!-- Botões de ação -->
         <button id="btn-jogar-novamente" class="btn-primario">
           Jogar Novamente
         </button>
-
         <button id="btn-menu" class="btn-secundario">Menu Principal</button>
       </div>
     </main>
 
+    <!-- ===== ECRÃ HISTÓRICO ===== -->
     <main id="ecra-historico" class="ecra">
       <div class="cabecalho-historico">
         <button id="btn-voltar" class="btn-voltar">← Voltar</button>
         <h2>Histórico</h2>
         <button id="btn-exportar" class="btn-secundario pequeno">⬇ CSV</button>
       </div>
-
       <div id="lista-historico"></div>
       <p id="historico-vazio" hidden>Ainda não jogaste nenhuma partida.</p>
     </main>
 
-    <!-- Loading -->
+    <!-- ===== LOADING (aparece enquanto carrega dados da API) ===== -->
     <div id="loading" class="loading" hidden>
       <div class="pokeball">
         <div class="pb-cima"></div>
@@ -167,15 +165,15 @@
       <p>A carregar…</p>
     </div>
 
-    <!-- Toast -->
+    <!-- Notificação temporária (toast) -->
     <div id="toast" class="toast"></div>
 
-    <!-- Atalhos -->
+    <!-- Atalhos de teclado visíveis no canto -->
     <aside class="atalhos">
       <kbd>Enter</kbd> Submeter &nbsp;|&nbsp; <kbd>H</kbd> Pista
     </aside>
 
-    <!-- Scripts -->
+    <!-- ===== SCRIPTS ===== -->
     <script src="js/api.js"></script>
     <script src="js/stateJogo.js"></script>
     <script src="js/timer.js"></script>
